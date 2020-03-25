@@ -3,9 +3,10 @@
     {% for row in session['board'] %}
         <div>{{row}}</div>
     {% endfor %}
-    <form action="/answer" method="POST">
-        <p><input type="text" name="answer" value=""></p>
-        </select>
-        <button>Submit Guess</button>
-    </form>
+    <p>
+        <form action="" method="" id="guess-form" >
+            <input type="text" id="user-guess-text">
+            <button type="submit">Submit Guess</button>
+        </form>
+    </p>
 {% endblock %}
