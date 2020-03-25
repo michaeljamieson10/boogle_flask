@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for row in session['board'] %}
+        <div>{{row}}</div>
+    {% endfor %}
+    <form action="/answer" method="POST">
+        <p><input type="text" name="answer" value=""></p>
+        </select>
+        <button>Submit Guess</button>
+    </form>
+{% endblock %}
