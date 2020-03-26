@@ -3,8 +3,9 @@
     {% for row in session['board'] %}
         <div>{{row}}</div>
     {% endfor %}
+     <span id="displayGuess"></span>
     <p>
-        <form action="" method="" id="guess-form" >
+        <form action="" method="POST" id="guess-form" name="guess-form">
             <input type="text" id="user-guess-text">
             <button type="submit">Submit Guess</button>
         </form>
