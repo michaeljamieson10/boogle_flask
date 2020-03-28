@@ -16,7 +16,7 @@ $guessForm.on("submit", async function(evt) {
     const $userGuessText = $("#user-guess-text").val()
     const isGuess = await newUser.getData($userGuessText)
     if(isGuess.result == "ok"){
-        score  += $userGuessText.length
+        score  = isGuess.finalNum
         console.log(score, "score score score")
         $score.text(score)  
     }

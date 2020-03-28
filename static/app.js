@@ -14,7 +14,7 @@ class User{
             userScore
         });
         console.log(response.data.result,"inside app")
-        return response.data.result
+        return response.data
         
         // return response.data
     }

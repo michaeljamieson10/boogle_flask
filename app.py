@@ -17,6 +17,10 @@ def home_board():
     """ Displays home board"""
     session['board'] = board
     session['count']= session.get('count', 0) + 1
+    session["myList"] = []
+    session["finalNum"] = 0
+
+
    
     return render_template("home.html")
 
@@ -30,11 +34,20 @@ def guess():
     print(word['userGuess'], file=sys.stderr)
     resultStatus = boggle_game.check_valid_word(board, word['userGuess'])
     print(resultStatus, file=sys.stderr)
-    # session['userGuessSet'] = set("cat") 
-    # for val in session['userGuessSet']: 
-    #     print(val) 
+    session["myList"].append(word['userGuess'])
+    session["finalNum"] = 0
 
-    final = {'result': resultStatus}
+
+    my_set = set(session["myList"])
+    # session['userGuessSet'] = set("cat") 
+    for val in my_set: 
+        session["finalNum"] += len(val)
+    print(session["finalNum"], file=sys.stderr)
+
+    final = {
+            'result': resultStatus,
+            'finalNum' : session["finalNum"]
+            }
     
 
     return jsonify(final)
