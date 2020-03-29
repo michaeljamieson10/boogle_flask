@@ -8,16 +8,13 @@ let newUser = new User("cat")
 setTimeout(async function(){ 
     $guessForm.hide()
     const isHighestS = await newUser.getScore(score)
-    console.log(isHighestS ,"ui js")
     }, 60000);
 $guessForm.on("submit", async function(evt) {
     evt.preventDefault(); // no page-refresh on submit
-
     const $userGuessText = $("#user-guess-text").val()
     const isGuess = await newUser.getData($userGuessText)
     if(isGuess.result == "ok"){
         score  = isGuess.finalNum
-        console.log(score, "score score score")
         $score.text(score)  
     }
   

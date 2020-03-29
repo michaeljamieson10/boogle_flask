@@ -31,18 +31,18 @@ def guess():
      """
     session['board'] = board
     word = request.json
-    print(word['userGuess'], file=sys.stderr)
+    print(word,"from json",file=sys.stderr)
+    session["myList"] = []
+
     resultStatus = boggle_game.check_valid_word(board, word['userGuess'])
-    print(resultStatus, file=sys.stderr)
-    session["myList"].append(word['userGuess'])
+    if resultStatus == "ok":
+        session["myList"].append(word['userGuess'])
     session["finalNum"] = 0
 
 
     my_set = set(session["myList"])
-    # session['userGuessSet'] = set("cat") 
     for val in my_set: 
         session["finalNum"] += len(val)
-    print(session["finalNum"], file=sys.stderr)
 
     final = {
             'result': resultStatus,
@@ -55,19 +55,14 @@ def guess():
 @app.route("/score", methods=['POST'])
 def score():
     session['score'] = request.json
-    score = request.json
+    print(session['score'],"from json",file=sys.stderr)
     session['highestScore'] = session.get('highestScore', 0) 
     if session['highestScore'] < session['score']['userScore']:
         session['highestScore'] = session['score']['userScore']
-        print(session['highestScore'],"HIGHEST SCORE",file=sys.stderr)
         finalHighestS = session['highestScore']
         final = {'result': finalHighestS}
         return jsonify(final)
 
-    print(session['score']['userScore'],file=sys.stderr)
-    # print(session['score'])
     finalHighestS = session['highestScore']
     final = {'result': finalHighestS}
     return jsonify(final)
-
-

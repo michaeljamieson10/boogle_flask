@@ -1,6 +1,5 @@
 class User{
-    constructor(brand){
-        this.user = "you are";
+    constructor(){
     }
 
     async getData(userGuess){   
