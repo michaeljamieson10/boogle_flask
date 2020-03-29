@@ -1,6 +1,6 @@
 from boggle import Boggle
 from flask import Flask, render_template, request, session, jsonify
-# import json
+import json
 import sys
 
 app = Flask(__name__)
@@ -32,13 +32,12 @@ def guess():
     session['board'] = board
     word = request.json
     print(word,"from json",file=sys.stderr)
-    session["myList"] = []
+    session["myList"] = session.get('myList', [])
 
     resultStatus = boggle_game.check_valid_word(board, word['userGuess'])
     if resultStatus == "ok":
         session["myList"].append(word['userGuess'])
     session["finalNum"] = 0
-
 
     my_set = set(session["myList"])
     for val in my_set: 
@@ -49,12 +48,15 @@ def guess():
             'finalNum' : session["finalNum"]
             }
     
-
     return jsonify(final)
 
 @app.route("/score", methods=['POST'])
 def score():
+    """This is the score route, does not refresh page using ajax axios, 
+        get the score sees if highest score is less thna current user score
+        then returns"""
     session['score'] = request.json
+    score = request.json
     print(session['score'],"from json",file=sys.stderr)
     session['highestScore'] = session.get('highestScore', 0) 
     if session['highestScore'] < session['score']['userScore']:
